@@ -1,0 +1,1742 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="栈,队列,JAVA," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="栈是一种特殊的线性表，有后进先出的性质，且只能从线性表的一端进行插入和删除元素等操作。队列，是限制插入操作在一端，而删除操作要在另一端进行的表。">
+<meta name="keywords" content="栈, 队列, JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构——栈与队列">
+<meta property="og:url" content="http://localhost:4000/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2019/03/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+<meta property="og:site_name" content="景煊">
+<meta property="og:description" content="栈是一种特殊的线性表，有后进先出的性质，且只能从线性表的一端进行插入和删除元素等操作。队列，是限制插入操作在一端，而删除操作要在另一端进行的表。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/stack.png">
+<meta property="og:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/stack with linked list.png">
+<meta property="og:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/two stacks form an array.png">
+<meta property="og:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/two stacks form a queue.png">
+<meta property="og:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/queue.png">
+<meta property="og:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/circular queue.png">
+<meta property="og:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/two queues form a stack.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构——栈与队列">
+<meta name="twitter:description" content="栈是一种特殊的线性表，有后进先出的性质，且只能从线性表的一端进行插入和删除元素等操作。队列，是限制插入操作在一端，而删除操作要在另一端进行的表。">
+<meta name="twitter:image" content="http://localhost:4000/assets/images/algorithm/stackandqueue/stack.png">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>数据结构——栈与队列 | 景煊</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">景煊</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2019/03/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MasterH">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/timg.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="景煊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            数据结构——栈与队列
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-19T00:00:00+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    栈是一种特殊的线性表，有后进先出的性质，且只能从线性表的一端进行插入和删除元素等操作。队列，是限制插入操作在一端，而删除操作要在另一端进行的表。
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://github.com/MasterHJG/algorithm.git" style="color:red" target="_blank"><strong><em>参考代码</em></strong></a></p>
+
+<h2 id="栈">栈</h2>
+
+<h3 id="基本定义">基本定义</h3>
+
+<p>栈是一种特殊的线性表，插入和删除操作只能在一端进行操作。插入操作称为入栈（push），删除元素称为出栈（pop）。栈中没有元素称为空栈。栈的操作只能在一端进行，则最先入栈的元素将最后删除，因此栈也称为先进后出的线性表。</p>
+
+<p><strong><em>栈的基本操作</em></strong></p>
+
+<ul>
+  <li>push(e)，入栈操作</li>
+  <li>pop()，出栈操作</li>
+  <li>peek()，获取栈顶元素</li>
+  <li>isEmpty()，栈是否为空</li>
+</ul>
+
+<p><strong><em>示例代码如下</em></strong></p>
+
+<p><span style="color:red"><strong>数组实现</strong></span></p>
+
+<p><img src="http://localhost:4000/assets/images/algorithm/stackandqueue/stack.png" width="30%" height="30%" alt="栈结构——数组" /></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre></td><td class="code"><pre><span class="err">```</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StackWithArray</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">;</span>  <span class="c1">//数组实现</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">top</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>  <span class="c1">//初始化，栈空</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">capacity</span><span class="o">;</span> <span class="c1">//栈的大小</span>
+
+    <span class="kd">public</span> <span class="nf">StackWithArray</span><span class="o">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">capacity</span> <span class="o">=</span> <span class="n">capacity</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">array</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">capacity</span><span class="o">];</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 入栈
+     *
+     * @param value
+     * @throws Exception
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top</span> <span class="o">==</span> <span class="n">capacity</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈已满"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">top</span><span class="o">++;</span>
+        <span class="n">array</span><span class="o">[</span><span class="n">top</span><span class="o">]</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 出栈
+     *
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pop</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈为空"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">top</span><span class="o">];</span>
+        <span class="n">top</span><span class="o">--;</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 判断栈是否为空
+     *
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">top</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 获取栈顶元素
+     *
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">peek</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈为空"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">top</span><span class="o">];</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">StackWithArray</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackWithArray</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="err">```</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p><span style="color:red"><strong>链表实现</strong></span></p>
+
+<p><img src="http://localhost:4000/assets/images/algorithm/stackandqueue/stack with linked list.png" width="80%" height="80%" alt="栈结构——链表" /></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66</pre></td><td class="code"><pre><span class="err">```</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StackWithLinkedList</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>  <span class="c1">//关键字</span>
+        <span class="n">Node</span> <span class="n">next</span><span class="o">;</span> <span class="c1">//尾指针，指向后继元素</span>
+
+        <span class="kd">public</span> <span class="nf">Node</span><span class="o">(</span><span class="kt">int</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Node</span> <span class="n">top</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="cm">/**
+     * 在头部插入
+     *
+     * @param data
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="kt">int</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">top</span><span class="o">;</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+        <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pop</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈为空"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">size</span> <span class="o">-=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">data</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 获取栈的大小
+     *
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSize</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">size</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">top</span> <span class="o">==</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">peek</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈为空"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">top</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">StackWithLinkedList</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StackWithLinkedList</span><span class="o">();</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">peek</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="err">```</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="常见用法">常见用法</h3>
+
+<p><strong><em>一个数组实现两个栈</em></strong></p>
+
+<p>将数组的起始位置看作是第一个栈的栈底，将数组的尾部看作第二个栈的栈底，压栈时，栈顶指针分别向中间移动，直到两栈顶指针相遇，则栈满。</p>
+
+<p><img src="http://localhost:4000/assets/images/algorithm/stackandqueue/two stacks form an array.png" width="50%" height="50%" alt="一个数组实现两个栈" /></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101</pre></td><td class="code"><pre><span class="err">```</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TwoStacksFormAnArray</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">top1</span><span class="o">,</span> <span class="n">top2</span><span class="o">;</span>  <span class="c1">//两个栈的栈顶</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">capacity</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">TwoStacksFormAnArray</span><span class="o">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">capacity</span> <span class="o">=</span> <span class="n">capacity</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">array</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">capacity</span><span class="o">];</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">top1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>  <span class="c1">//栈1为空</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">top2</span> <span class="o">=</span> <span class="n">capacity</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">stackEmpty1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">stackEmpty2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top2</span> <span class="o">==</span> <span class="n">capacity</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pop1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">stackEmpty1</span><span class="o">())</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈1为空!"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">top1</span><span class="o">];</span>
+            <span class="n">top1</span> <span class="o">-=</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pop2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">stackEmpty2</span><span class="o">())</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈2为空!"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">top2</span><span class="o">];</span>
+            <span class="n">top2</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">;</span>  <span class="c1">//索引变化</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push1</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top1</span> <span class="o">==</span> <span class="n">top2</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"发生上溢！"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">top1</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">top1</span><span class="o">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push2</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">top1</span> <span class="o">==</span> <span class="n">top2</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"发生上溢!"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">top2</span> <span class="o">-=</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">top2</span><span class="o">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">peek1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">stackEmpty1</span><span class="o">())</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈1为空!"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">top1</span><span class="o">];</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">peek2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">stackEmpty2</span><span class="o">())</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"栈2为空!"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">array</span><span class="o">[</span><span class="n">top2</span><span class="o">];</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TwoStacksFormAnArray</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TwoStacksFormAnArray</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">push1</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">push1</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">push2</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">push2</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+            <span class="n">t</span><span class="o">.</span><span class="na">push2</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">peek1</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">peek2</span><span class="o">());</span>
+            <span class="c1">//t.push1(6);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">pop1</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">pop1</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">stackEmpty1</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="err">```</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p><strong><em>两个栈实现一个队列</em></strong></p>
+
+<p>两种思路：</p>
+
+<ol>
+  <li>
+    <p>始终维护s1作为存储空间，以s2作为临时缓冲区。入队时，将元素压入s1。出队时，将s1的元素逐个“倒入”（弹出并压入）s2，将s2的顶元素弹出作为出队元素，之后再将s2剩下的元素逐个“倒回”s1。</p>
+  </li>
+  <li>
+    <p>入队时，将元素压入s1。出队时，判断s2是否为空，如不为空，则直接弹出顶元素；如为空，则将s1的元素逐个“倒入”s2，把最后一个元素弹出并出队。</p>
+  </li>
+</ol>
+
+<p><img src="http://localhost:4000/assets/images/algorithm/stackandqueue/two stacks form a queue.png" width="60%" height="60%" alt="两个栈实现一个队列" /></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53</pre></td><td class="code"><pre><span class="err">```</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TwoStacksFormAQueue</span> <span class="o">{</span>
+
+    <span class="cm">/**
+     * 入队时，将元素压入s1。
+     * 出队时，判断s2是否为空，如不为空，则直接弹出顶元素；
+     * 如为空，则将s1的元素逐个“倒入”s2，把最后一个元素弹出并出队。
+     */</span>
+
+    <span class="kd">private</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">s1</span><span class="o">;</span>  <span class="c1">//用来入栈，相当于队列的队尾</span>
+    <span class="kd">private</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">s2</span><span class="o">;</span>  <span class="c1">//用来出栈，相当于队列的队头</span>
+
+    <span class="kd">public</span> <span class="nf">TwoStacksFormAQueue</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;();</span>
+        <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stack</span><span class="o">&lt;&gt;();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addToTail</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">s1</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">deleteFromHead</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">s2</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">==</span> <span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"栈s2为空"</span><span class="o">);</span>
+            <span class="n">stack1ToStack2</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">s2</span><span class="o">.</span><span class="na">pop</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">stack1ToStack2</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">==</span> <span class="kc">false</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">s2</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="n">s1</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TwoStacksFormAQueue</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TwoStacksFormAQueue</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">//queue.deleteFromHead(); //empty stack</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">addToTail</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">addToTail</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">addToTail</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">deleteFromHead</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">deleteFromHead</span><span class="o">());</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">addToTail</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">addToTail</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">deleteFromHead</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="err">```</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h2 id="队列">队列</h2>
+
+<h3 id="基本定义-1">基本定义</h3>
+
+<p>队列是一种特殊的线性表，插入和删除操作在表的两端进行操作。插入操作称为入队（enqueue），删除操作称为出队（dequeue）。出队的一端称为队头，入队的一端称为队尾，因此队列的特点是先进先出。</p>
+
+<p><img src="http://localhost:4000/assets/images/algorithm/stackandqueue/queue.png" width="60%" height="60%" alt="队列" /></p>
+
+<p><strong><em>队列的基本操作</em></strong></p>
+
+<ul>
+  <li>offer(e)，入队操作</li>
+  <li>poll()，出队操作</li>
+  <li>isEmpty()，判断空队列</li>
+</ul>
+
+<p><strong><em>示例代码如下</em></strong></p>
+
+<p><span style="color:red"><strong>循环队列</strong></span></p>
+
+<p>由于数组构成的队列容易造成空间的浪费，所以优化成循环队列。</p>
+
+<p><img src="http://localhost:4000/assets/images/algorithm/stackandqueue/circular queue.png" width="100%" height="100%" alt="循环队列" /></p>
+
+<p>注意点：</p>
+
+<p>为方便起见，初始化-&gt;head=tail=0</p>
+
+<p>当队空：head=tail</p>
+
+<p>当队满：head=tail（也成立）</p>
+
+<p>但是这样就无法判断</p>
+
+<p>处理：</p>
+
+<ul>
+  <li>另外设置一个标志位以区别队列是空还是满</li>
+  <li>少用一个元素空间，约定“队列头指针head在队尾指针tail的下一个位置上”，作为满状态</li>
+</ul>
+
+<p><span style="color:red"><strong>空：head=tail</strong></span></p>
+
+<p><span style="color:red"><strong>满：(tail+1)%maxsize=head</strong></span></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</pre></td><td class="code"><pre><span class="err">```</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CircularQueue</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="o">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>  <span class="c1">//设置队列的头指针和尾指针</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">maxSize</span><span class="o">;</span>  <span class="c1">//队列的空间大小</span>
+    <span class="kd">private</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">array</span><span class="o">;</span>  <span class="c1">//数组结构</span>
+
+    <span class="kd">public</span> <span class="nf">CircularQueue</span><span class="o">(</span><span class="kt">int</span> <span class="n">maxSize</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">array</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">maxSize</span><span class="o">];</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">maxSize</span> <span class="o">=</span> <span class="n">maxSize</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">queueEmpty</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="n">tail</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span>
+
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">queueFull</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">((</span><span class="n">tail</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">%</span> <span class="n">maxSize</span> <span class="o">==</span> <span class="n">head</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">enqueue</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">queueFull</span><span class="o">())</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"队列已满！"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="n">array</span><span class="o">[</span><span class="n">tail</span><span class="o">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">tail</span> <span class="o">==</span> <span class="n">maxSize</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+                <span class="n">tail</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="k">else</span>
+                <span class="n">tail</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">dequeue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">queueEmpty</span><span class="o">())</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">(</span><span class="s">"队列为空！"</span><span class="o">);</span>
+        <span class="k">else</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">[</span><span class="n">head</span><span class="o">];</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="n">maxSize</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span>
+                <span class="n">head</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="k">else</span>
+                <span class="n">head</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">CircularQueue</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CircularQueue</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">(</span><span class="mi">4</span><span class="o">);</span>
+            <span class="c1">//queue.enqueue(5); //队列满</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">dequeue</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">dequeue</span><span class="o">());</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">enqueue</span><span class="o">(</span><span class="mi">6</span><span class="o">);</span>
+            <span class="c1">//queue.enqueue(7);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">dequeue</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">dequeue</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">dequeue</span><span class="o">());</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">queue</span><span class="o">.</span><span class="na">dequeue</span><span class="o">());</span>
+            <span class="c1">//System.out.println(queue.dequeue()); //队列空</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="err">```</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="常见用法-1">常见用法</h3>
+
+<p><strong><em>两个队列实现一个栈</em></strong></p>
+
+<p>思路：</p>
+
+<p>所有元素进入q1，因为我们的目的是栈，也就是最先出d,队列是从队头开始出，所有先把abc出q1并入q2,此时目标d跑到了队头，出q1。此时q1已经为空，下一个要出的是c,把ab从q2出队并进q1,此时目标c在q2队头,出队……..</p>
+
+<p>即：把非空队列的n-1个压人空对列，剩的第n个出队…总有一个队列为空。</p>
+
+<p><img src="http://localhost:4000/assets/images/algorithm/stackandqueue/two queues form a stack.png" width="80%" height="80%" alt="两个队列实现一个栈" /></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></td><td class="code"><pre><span class="err">```</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TwoQueuesFormAStack</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">q1</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Queue</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">q2</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">TwoQueuesFormAStack</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">q1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+        <span class="n">q2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;&gt;();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">push</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">q1</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">pop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">q1</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">q2</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q1</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">q2</span><span class="o">.</span><span class="na">poll</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">q2</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">q2</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">q1</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">q2</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">q1</span><span class="o">.</span><span class="na">poll</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">q1</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">TwoQueuesFormAStack</span> <span class="n">stack</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TwoQueuesFormAStack</span><span class="o">();</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+        <span class="n">stack</span><span class="o">.</span><span class="na">push</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stack</span><span class="o">.</span><span class="na">pop</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="err">```</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/%E6%A0%88" rel="tag"># 栈</a>
+          
+            
+            <a href="/tag/#/%E9%98%9F%E5%88%97" rel="tag"># 队列</a>
+          
+            
+            <a href="/tag/#/JAVA" rel="tag"># JAVA</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2019/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/" rel="prev" title="数据结构——链表">
+                数据结构——链表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/timg.jpeg"
+               alt="MasterH" />
+          <p class="site-author-name" itemprop="name">MasterH</p>
+           
+              <p class="site-description motion-element" itemprop="description">百学须先立志</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#栈"> <span class="nav-number">1</span> <span class="nav-text">栈</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#基本定义"> <span class="nav-number">1.1</span> <span class="nav-text">基本定义</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#常见用法"> <span class="nav-number">1.2</span> <span class="nav-text">常见用法</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#队列"> <span class="nav-number">2</span> <span class="nav-text">队列</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#基本定义-1"> <span class="nav-number">2.1</span> <span class="nav-text">基本定义</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#常见用法-1"> <span class="nav-number">2.2</span> <span class="nav-text">常见用法</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child">
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MasterH</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

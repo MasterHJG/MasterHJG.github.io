@@ -2,6 +2,958 @@
 <search>
   
     <entry>
+      <title>数据结构——栈与队列</title>
+      <url>/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2019/03/19/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/</url>
+      <content type="text">参考代码
+
+栈
+
+基本定义
+
+栈是一种特殊的线性表，插入和删除操作只能在一端进行操作。插入操作称为入栈（push），删除元素称为出栈（pop）。栈中没有元素称为空栈。栈的操作只能在一端进行，则最先入栈的元素将最后删除，因此栈也称为先进后出的线性表。
+
+栈的基本操作
+
+
+  push(e)，入栈操作
+  pop()，出栈操作
+  peek()，获取栈顶元素
+  isEmpty()，栈是否为空
+
+
+示例代码如下
+
+数组实现
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74```
+public class StackWithArray {
+    private int[] array;  //数组实现
+    private int top = -1;  //初始化，栈空
+    private int capacity; //栈的大小
+
+    public StackWithArray(int capacity) {
+        this.capacity = capacity;
+        this.array = new int[capacity];
+    }
+
+    /**
+     * 入栈
+     *
+     * @param value
+     * @throws Exception
+     */
+    public void push(int value) throws Exception {
+        if (top == capacity - 1) {
+            throw new Exception(&quot;栈已满&quot;);
+        }
+        top++;
+        array[top] = value;
+    }
+
+    /**
+     * 出栈
+     *
+     * @return
+     * @throws Exception
+     */
+    public int pop() throws Exception {
+        if (top == -1) {
+            throw new Exception(&quot;栈为空&quot;);
+        }
+        int value = array[top];
+        top--;
+        return value;
+    }
+
+    /**
+     * 判断栈是否为空
+     *
+     * @return
+     */
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    /**
+     * 获取栈顶元素
+     *
+     * @return
+     * @throws Exception
+     */
+    public int peek() throws Exception {
+        if (top == -1) {
+            throw new Exception(&quot;栈为空&quot;);
+        }
+        return array[top];
+    }
+
+    public static void main(String[] args) throws Exception {
+        StackWithArray stack = new StackWithArray(5);
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        System.out.println(stack.peek());
+        System.out.println(stack.pop());
+        System.out.println(stack.peek());
+        System.out.println(stack.isEmpty());
+    }
+}
+```
+
+
+链表实现
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66```
+public class StackWithLinkedList {
+    public class Node {
+        int data;  //关键字
+        Node next; //尾指针，指向后继元素
+
+        public Node(int data) {
+            this.data = data;
+        }
+    }
+
+    public Node top = null;
+    public int size = 0;
+
+    /**
+     * 在头部插入
+     *
+     * @param data
+     */
+    public void push(int data) {
+        Node node = new Node(data);
+        node.next = top;
+        top = node;
+        size += 1;
+    }
+
+    public int pop() throws Exception {
+        if (top == null) {
+            throw new Exception(&quot;栈为空&quot;);
+        }
+        size -= 1;
+        int data = top.data;
+        top = top.next;
+        return data;
+    }
+
+    /**
+     * 获取栈的大小
+     *
+     * @return
+     */
+    public int getSize() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return top == null;
+    }
+
+    public int peek() throws Exception {
+        if (top == null) {
+            throw new Exception(&quot;栈为空&quot;);
+        }
+        return top.data;
+    }
+
+    public static void main(String[] args) throws Exception {
+        StackWithLinkedList stack = new StackWithLinkedList();
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        System.out.println(stack.peek());
+        System.out.println(stack.isEmpty());
+    }
+}
+```
+
+
+常见用法
+
+一个数组实现两个栈
+
+将数组的起始位置看作是第一个栈的栈底，将数组的尾部看作第二个栈的栈底，压栈时，栈顶指针分别向中间移动，直到两栈顶指针相遇，则栈满。
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101```
+public class TwoStacksFormAnArray {
+    private int[] array;
+    private int top1, top2;  //两个栈的栈顶
+    private int capacity;
+
+    public TwoStacksFormAnArray(int capacity) {
+        this.capacity = capacity;
+        this.array = new int[capacity];
+        this.top1 = -1;  //栈1为空
+        this.top2 = capacity;
+    }
+
+    public boolean stackEmpty1() {
+        if (top1 == -1)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean stackEmpty2() {
+        if (top2 == capacity)
+            return true;
+        else
+            return false;
+    }
+
+    public int pop1() throws Exception {
+        if (stackEmpty1())
+            throw new Exception(&quot;栈1为空!&quot;);
+        else {
+            int value = array[top1];
+            top1 -= 1;
+            return value;
+        }
+    }
+
+    public int pop2() throws Exception {
+        if (stackEmpty2())
+            throw new Exception(&quot;栈2为空!&quot;);
+        else {
+            int value = array[top2];
+            top2 += 1;
+            return value;  //索引变化
+        }
+    }
+
+    public void push1(int x) throws Exception {
+        if (top1 == top2 - 1)
+            throw new Exception(&quot;发生上溢！&quot;);
+        else {
+            top1 += 1;
+            array[top1] = x;
+        }
+    }
+
+    public void push2(int x) throws Exception {
+        if (top1 == top2 - 1)
+            throw new Exception(&quot;发生上溢!&quot;);
+        else {
+            top2 -= 1;
+            array[top2] = x;
+        }
+    }
+
+    public int peek1() throws Exception {
+        if (stackEmpty1())
+            throw new Exception(&quot;栈1为空!&quot;);
+        else {
+            return array[top1];
+        }
+    }
+
+    public int peek2() throws Exception {
+        if (stackEmpty2())
+            throw new Exception(&quot;栈2为空!&quot;);
+        else {
+            return array[top2];
+        }
+    }
+
+    public static void main(String[] args) {
+        TwoStacksFormAnArray t = new TwoStacksFormAnArray(5);
+        try {
+            t.push1(1);
+            t.push1(2);
+            t.push2(3);
+            t.push2(4);
+            t.push2(5);
+            System.out.println(t.peek1());
+            System.out.println(t.peek2());
+            //t.push1(6);
+            System.out.println(t.pop1());
+            System.out.println(t.pop1());
+            System.out.println(t.stackEmpty1());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
+两个栈实现一个队列
+
+两种思路：
+
+
+  
+    始终维护s1作为存储空间，以s2作为临时缓冲区。入队时，将元素压入s1。出队时，将s1的元素逐个“倒入”（弹出并压入）s2，将s2的顶元素弹出作为出队元素，之后再将s2剩下的元素逐个“倒回”s1。
+  
+  
+    入队时，将元素压入s1。出队时，判断s2是否为空，如不为空，则直接弹出顶元素；如为空，则将s1的元素逐个“倒入”s2，把最后一个元素弹出并出队。
+  
+
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53```
+public class TwoStacksFormAQueue {
+
+    /**
+     * 入队时，将元素压入s1。
+     * 出队时，判断s2是否为空，如不为空，则直接弹出顶元素；
+     * 如为空，则将s1的元素逐个“倒入”s2，把最后一个元素弹出并出队。
+     */
+
+    private Stack&amp;lt;Integer&amp;gt; s1;  //用来入栈，相当于队列的队尾
+    private Stack&amp;lt;Integer&amp;gt; s2;  //用来出栈，相当于队列的队头
+
+    public TwoStacksFormAQueue() {
+        s1 = new Stack&amp;lt;&amp;gt;();
+        s2 = new Stack&amp;lt;&amp;gt;();
+    }
+
+    public void addToTail(int x) throws Exception {
+        s1.push(x);
+    }
+
+    public int deleteFromHead() throws Exception {
+        if (s2.isEmpty() == true) {
+            System.out.println(&quot;栈s2为空&quot;);
+            stack1ToStack2();
+        }
+        return s2.pop();
+    }
+
+    public void stack1ToStack2() throws Exception {
+        while (s1.isEmpty() == false) {
+            s2.push(s1.pop());
+        }
+    }
+
+    public static void main(String[] args) {
+        TwoStacksFormAQueue queue = new TwoStacksFormAQueue();
+        try {
+            //queue.deleteFromHead(); //empty stack
+            queue.addToTail(1);
+            queue.addToTail(2);
+            queue.addToTail(3);
+            System.out.println(queue.deleteFromHead());
+            System.out.println(queue.deleteFromHead());
+            queue.addToTail(4);
+            queue.addToTail(5);
+            System.out.println(queue.deleteFromHead());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
+队列
+
+基本定义
+
+队列是一种特殊的线性表，插入和删除操作在表的两端进行操作。插入操作称为入队（enqueue），删除操作称为出队（dequeue）。出队的一端称为队头，入队的一端称为队尾，因此队列的特点是先进先出。
+
+
+
+队列的基本操作
+
+
+  offer(e)，入队操作
+  poll()，出队操作
+  isEmpty()，判断空队列
+
+
+示例代码如下
+
+循环队列
+
+由于数组构成的队列容易造成空间的浪费，所以优化成循环队列。
+
+
+
+注意点：
+
+为方便起见，初始化-&amp;gt;head=tail=0
+
+当队空：head=tail
+
+当队满：head=tail（也成立）
+
+但是这样就无法判断
+
+处理：
+
+
+  另外设置一个标志位以区别队列是空还是满
+  少用一个元素空间，约定“队列头指针head在队尾指针tail的下一个位置上”，作为满状态
+
+
+空：head=tail
+
+满：(tail+1)%maxsize=head
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76```
+public class CircularQueue {
+    private int head = 0, tail = 0;  //设置队列的头指针和尾指针
+    private int maxSize;  //队列的空间大小
+    private int[] array;  //数组结构
+
+    public CircularQueue(int maxSize) {
+        this.array = new int[maxSize];
+        this.maxSize = maxSize;
+    }
+
+    public boolean queueEmpty() {
+        if (head == tail)
+            return true;
+        else
+
+            return false;
+    }
+
+    public boolean queueFull() {
+        if ((tail + 1) % maxSize == head)
+            return true;
+        else
+            return false;
+    }
+
+    public void enqueue(int x) throws Exception {
+        if (queueFull())
+            throw new Exception(&quot;队列已满！&quot;);
+        else {
+            array[tail] = x;
+            if (tail == maxSize - 1)
+                tail = 0;
+            else
+                tail += 1;
+        }
+    }
+
+    public int dequeue() throws Exception {
+        if (queueEmpty())
+            throw new Exception(&quot;队列为空！&quot;);
+        else {
+            int value = array[head];
+            if (head == maxSize - 1)
+                head = 0;
+            else
+                head += 1;
+            return value;
+        }
+    }
+
+    public static void main(String[] args) {
+        CircularQueue queue = new CircularQueue(5);
+        try {
+            queue.enqueue(1);
+            queue.enqueue(2);
+            queue.enqueue(3);
+            queue.enqueue(4);
+            //queue.enqueue(5); //队列满
+            System.out.println(queue.dequeue());
+            System.out.println(queue.dequeue());
+            queue.enqueue(5);
+            queue.enqueue(6);
+            //queue.enqueue(7);
+            System.out.println(queue.dequeue());
+            System.out.println(queue.dequeue());
+            System.out.println(queue.dequeue());
+            System.out.println(queue.dequeue());
+            //System.out.println(queue.dequeue()); //队列空
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
+常见用法
+
+两个队列实现一个栈
+
+思路：
+
+所有元素进入q1，因为我们的目的是栈，也就是最先出d,队列是从队头开始出，所有先把abc出q1并入q2,此时目标d跑到了队头，出q1。此时q1已经为空，下一个要出的是c,把ab从q2出队并进q1,此时目标c在q2队头,出队……..
+
+即：把非空队列的n-1个压人空对列，剩的第n个出队…总有一个队列为空。
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39```
+public class TwoQueuesFormAStack {
+    private Queue&amp;lt;Integer&amp;gt; q1;
+    private Queue&amp;lt;Integer&amp;gt; q2;
+
+    public TwoQueuesFormAStack() {
+        q1 = new LinkedList&amp;lt;&amp;gt;();
+        q2 = new LinkedList&amp;lt;&amp;gt;();
+    }
+
+    public void push(int x) {
+        q1.offer(x);
+    }
+
+    public int pop() {
+        int value = 0;
+        if (q1.isEmpty()) {
+            while (q2.size() &amp;gt; 1) {
+                q1.offer(q2.poll());
+            }
+            value = q2.poll();
+        } else if (q2.isEmpty()) {
+            while (q1.size() &amp;gt; 1) {
+                q2.offer(q1.poll());
+            }
+            value = q1.poll();
+        }
+        return value;
+    }
+
+    public static void main(String[] args) {
+        TwoQueuesFormAStack stack = new TwoQueuesFormAStack();
+        stack.push(1);
+        stack.push(2);
+        System.out.println(stack.pop());
+        System.out.println(stack.pop());
+    }
+}
+```
+
+
+</content>
+      <categories>
+        
+          <category> 数据结构 </category>
+        
+      </categories>
+      <tags>
+        
+          <tag> 栈 </tag>
+        
+          <tag> 队列 </tag>
+        
+          <tag> JAVA </tag>
+        
+      </tags>
+      <tags></tags>
+    </entry>
+  
+    <entry>
       <title>数据结构——链表</title>
       <url>/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/2019/03/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%93%BE%E8%A1%A8/</url>
       <content type="text">参考代码
