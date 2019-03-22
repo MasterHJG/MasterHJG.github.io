@@ -4,3 +4,18 @@ layout: layout
 
 {% assign __ = site.data.languages[site.language] %}
 {% include post.html %}
+
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+    owner: 'MasterHJG',
+    repo: 'MasterHJG.github.io',
+    oauth: {
+        client_id: '2648f38f34b49af0110e',
+        client_secret: '27ccb6e0b09747182b7cbbb3bd58e92d6dbd422e',
+    },
+});
+gitment.render('gitmentContainer');
+</script>
