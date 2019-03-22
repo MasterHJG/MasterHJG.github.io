@@ -6,16 +6,17 @@ layout: layout
 {% include post.html %}
 
 <!-- Gitalk start -->
-<div id="gitalk-container"></div> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<div id="gitalk-container"></div> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
 <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> 
 <script>
     var gitalk  = new Gitalk ({
         id: window.location.pathname,   // Ensure uniqueness and length less than 50
-        clientID: '{ {site.gitalk.clientID} }',
-        clientSecret: '{ {site.gitalk.clientSecret} }',
-        repo: '{ {site.gitalk.repo} }',
-        owner: '{ {site.gitalk.owner} }',
-        admin: ['{ {site.gitalk.masterhjg} }'],
+        clientID: '2648f38f34b49af0110e',
+        clientSecret: '27ccb6e0b09747182b7cbbb3bd58e92d6dbd422e',
+        repo: 'MasterHJG.github.io',
+        owner: 'masterhjg',
+        admin: ['masterhjg'],
 		distractionFreeMode: false  // Facebook-like distraction free mode
     })
     gitalk.render('gitalk-container')
