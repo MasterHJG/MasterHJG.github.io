@@ -729,6 +729,7 @@ Next use <code class="highlighter-rouge">normal</code> by default. Have a previe
 
 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script src="http://localhost:4000/assets/js/src/md5.min.js"></script>
 <script type="text/javascript">
       var gitalk = new Gitalk({
         clientID: '2648f38f34b49af0110e',
@@ -736,7 +737,7 @@ Next use <code class="highlighter-rouge">normal</code> by default. Have a previe
         repo: 'MasterHJG.github.io',
         owner: 'masterhjg',
         admin: ['masterhjg'],
-        id: '/README.en/',
+        id: md5('/README.en/'),
         labels: ['gitalk'],
         perPage: 50,
         distractionFreeMode: true
