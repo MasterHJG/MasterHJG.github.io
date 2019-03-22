@@ -711,6 +711,8 @@ scheme: Pisces
           
   <div class="comments" id="comments">
     
+      <div id="gitalk-container"></div>
+    
   </div>
 
 
@@ -1006,6 +1008,25 @@ scheme: Pisces
 
 
 
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+      var gitalk = new Gitalk({
+        clientID: '2648f38f34b49af0110e',
+        clientSecret: '27ccb6e0b09747182b7cbbb3bd58e92d6dbd422e',
+        repo: 'MasterHJG.github.io',
+        owner: 'masterhjg',
+        admin: ['masterhjg'],
+        id: '/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/2018/10/22/jekyll%E4%BD%BF%E7%94%A8%E6%95%B4%E7%90%86/',
+        labels: ['gitalk'],
+        perPage: 50,
+        distractionFreeMode: true
+      });
+      gitalk.render('gitalk-container');
+</script>
 
 
 
