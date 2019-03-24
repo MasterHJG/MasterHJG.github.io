@@ -216,6 +216,8 @@ font:
 #social:
   #LinkLabel: Link
 
+social:
+  GitHub: https://github.com/MasterHJG
 
 # Social Links Icons
 # Icon Mapping:
@@ -227,8 +229,6 @@ social_icons:
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
-  Twitter: twitter
-  Weibo: weibo
 
 
 # Sidebar Avatar
@@ -318,7 +318,7 @@ post_meta:
 # Post wordcount display settings
 post_wordcount:
   item_text: true
-  wordcount: false
+  wordcount: true
   min2read: false
   separated_meta: true
 
